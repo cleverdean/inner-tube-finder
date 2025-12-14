@@ -1,13 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { TubeFinder } from "@/components/TubeFinder/TubeFinder";
+import { Helmet } from "react-helmet";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <Helmet>
+        <title>Bicycle Inner Tube Finder | Find the Right Tube for Your Tire</title>
+        <meta 
+          name="description" 
+          content="Find the perfect inner tube for your bicycle tire. Enter your tire size and get matched with compatible tubes instantly. Supports road, MTB, gravel, and kids' bikes."
+        />
+      </Helmet>
+      
+      <main className="min-h-screen bg-background">
+        <div className="container py-12 px-4 md:py-16">
+          <TubeFinder />
+        </div>
+        
+        {/* Footer */}
+        <footer className="border-t border-border py-6">
+          <div className="container text-center text-sm text-muted-foreground">
+            <p>Enter your tire size to find compatible inner tubes.</p>
+          </div>
+        </footer>
+      </main>
+    </>
   );
 };
 
