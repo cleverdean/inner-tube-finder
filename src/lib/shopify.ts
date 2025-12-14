@@ -208,7 +208,8 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
   const widthMin = product.widthMin?.value ? parseFloat(product.widthMin.value) : null;
   const widthMax = product.widthMax?.value ? parseFloat(product.widthMax.value) : null;
   const diameterMin = product.diameterMin?.value ? parseFloat(product.diameterMin.value) : null;
-  const diameterMax = product.diameterMax?.value ? parseFloat(product.diameterMax.value) : null;
+  // diameterMax is optional - fallback to diameterMin if not set
+  const diameterMax = product.diameterMax?.value ? parseFloat(product.diameterMax.value) : diameterMin;
   
   // Log metafield values for debugging
   console.log(`Product ${product.handle} metafields:`, {
@@ -219,8 +220,8 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
     valveType: product.valveType?.value,
   });
   
-  // Skip products without required tube specifications
-  if (widthMin === null || widthMax === null || diameterMin === null || diameterMax === null) {
+  // Skip products without required tube specifications (diameterMax is optional)
+  if (widthMin === null || widthMax === null || diameterMin === null) {
     console.log(`Skipping product ${product.handle}: missing dimension metafields`);
     return null;
   }
