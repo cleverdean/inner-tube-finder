@@ -6,7 +6,8 @@ import { QuickSizeButtons } from "./QuickSizeButtons";
 import { ParsedSizeDisplay } from "./ParsedSizeDisplay";
 import { parseTireSize, ParsedTireSize } from "@/utils/tireSizeParser";
 import { findMatchingTubes, TubeMatch } from "@/utils/tubeMatcher";
-import { AlertCircle, Bike } from "lucide-react";
+import { useTubeProducts } from "@/hooks/useTubeProducts";
+import { AlertCircle, Bike, Loader2 } from "lucide-react";
 
 export function TubeFinder() {
   const [inputValue, setInputValue] = useState("");
@@ -15,6 +16,9 @@ export function TubeFinder() {
   const [matches, setMatches] = useState<TubeMatch[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Fetch tube products from Shopify
+  const { tubes, isLoading: isLoadingTubes, error: tubesError } = useTubeProducts();
 
   const handleSearch = useCallback(() => {
     setError(null);
@@ -37,9 +41,9 @@ export function TubeFinder() {
     }
 
     setParsedSize(parsed);
-    const foundMatches = findMatchingTubes(parsed, valveFilter);
+    const foundMatches = findMatchingTubes(parsed, tubes, valveFilter);
     setMatches(foundMatches);
-  }, [inputValue, valveFilter]);
+  }, [inputValue, valveFilter, tubes]);
 
   const handleQuickSelect = (size: string) => {
     setInputValue(size);
@@ -48,7 +52,7 @@ export function TubeFinder() {
       const parsed = parseTireSize(size);
       if (parsed) {
         setParsedSize(parsed);
-        setMatches(findMatchingTubes(parsed, valveFilter));
+        setMatches(findMatchingTubes(parsed, tubes, valveFilter));
         setHasSearched(true);
         setError(null);
       }
@@ -58,9 +62,33 @@ export function TubeFinder() {
   const handleValveChange = (valve: 'Presta' | 'Schrader' | null) => {
     setValveFilter(valve);
     if (parsedSize) {
-      setMatches(findMatchingTubes(parsedSize, valve));
+      setMatches(findMatchingTubes(parsedSize, tubes, valve));
     }
   };
+
+  // Show loading state while fetching tubes
+  if (isLoadingTubes) {
+    return (
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="text-center py-16">
+          <Loader2 className="w-10 h-10 animate-spin mx-auto text-primary mb-4" />
+          <p className="text-muted-foreground">Loading tube catalog...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error if tubes failed to load
+  if (tubesError) {
+    return (
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive">
+          <AlertCircle className="h-5 w-5 shrink-0" />
+          <p>Failed to load tube catalog: {tubesError}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto">
@@ -75,6 +103,11 @@ export function TubeFinder() {
         <p className="text-muted-foreground max-w-md mx-auto">
           Enter your tire size to find the perfect inner tube. We'll match it with compatible options from our catalog.
         </p>
+        {tubes.length > 0 && (
+          <p className="text-sm text-muted-foreground mt-2">
+            {tubes.length} tubes in catalog
+          </p>
+        )}
       </div>
 
       {/* Search input */}
@@ -111,8 +144,20 @@ export function TubeFinder() {
         </div>
       )}
 
+      {/* No tubes available message */}
+      {tubes.length === 0 && !isLoadingTubes && (
+        <div className="text-center py-12 px-4 bg-muted/50 rounded-xl">
+          <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+          <h3 className="text-lg font-medium mb-2">No Tubes Available</h3>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            No tube products with metafield specifications were found in your Shopify store.
+            Make sure your products have the required metafields (specs.width_min, specs.width_max, specs.diameter_min, specs.diameter_max, specs.valve_type).
+          </p>
+        </div>
+      )}
+
       {/* Results */}
-      {hasSearched && !error && (
+      {hasSearched && !error && tubes.length > 0 && (
         <div>
           {matches.length > 0 ? (
             <>
@@ -141,7 +186,7 @@ export function TubeFinder() {
       )}
 
       {/* Initial state */}
-      {!hasSearched && (
+      {!hasSearched && tubes.length > 0 && (
         <div className="text-center py-12 px-4 bg-muted/30 rounded-xl border-2 border-dashed border-border">
           <div className="max-w-sm mx-auto">
             <h3 className="font-medium mb-2">How to Find Your Tire Size</h3>

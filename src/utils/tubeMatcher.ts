@@ -1,4 +1,4 @@
-import { TubeSpec, tubeData } from "@/data/tubeData";
+import { TubeSpec } from "@/lib/shopify";
 import { ParsedTireSize } from "./tireSizeParser";
 
 export interface TubeMatch {
@@ -11,15 +11,16 @@ export interface TubeMatch {
 }
 
 /**
- * Find tubes that match the given tire size
+ * Find tubes that match the given tire size from provided tube list
  */
 export function findMatchingTubes(
   parsedSize: ParsedTireSize,
+  tubes: TubeSpec[],
   valveFilter?: 'Presta' | 'Schrader' | null
 ): TubeMatch[] {
   const matches: TubeMatch[] = [];
 
-  for (const tube of tubeData) {
+  for (const tube of tubes) {
     // Check diameter compatibility
     const diameterMatch = checkDiameterMatch(parsedSize.diameter, tube);
     if (!diameterMatch) continue;
@@ -132,9 +133,9 @@ function calculateMatchScore(
 /**
  * Get all unique wheel sizes from tube data
  */
-export function getAvailableWheelSizes(): string[] {
+export function getAvailableWheelSizes(tubes: TubeSpec[]): string[] {
   const sizes = new Set<string>();
-  for (const tube of tubeData) {
+  for (const tube of tubes) {
     for (const size of tube.wheelSizes) {
       sizes.add(size);
     }
@@ -150,12 +151,7 @@ export function getAvailableWheelSizes(): string[] {
  * Format tube name from handle
  */
 export function formatTubeName(tube: TubeSpec): string {
-  // Convert handle to readable name
-  const name = tube.handle
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
-  
-  return name;
+  return tube.title;
 }
 
 /**

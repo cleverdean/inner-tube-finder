@@ -1,7 +1,7 @@
 import { TubeMatch, formatTubeName } from "@/utils/tubeMatcher";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Check, AlertCircle, Weight, Ruler, Gauge } from "lucide-react";
+import { Check, AlertCircle, Weight, Ruler, Gauge, DollarSign } from "lucide-react";
 
 interface TubeCardProps {
   match: TubeMatch;
@@ -76,6 +76,14 @@ export function TubeCard({ match, index }: TubeCardProps) {
           <div className="flex items-center gap-2 text-sm">
             <Weight className="h-4 w-4 text-muted-foreground" />
             <span className="font-mono">{tube.weight}g</span>
+          </div>
+        )}
+        {tube.price && (
+          <div className="flex items-center gap-2 text-sm">
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <span className="font-semibold text-primary">
+              {tube.price.currencyCode} {parseFloat(tube.price.amount).toFixed(2)}
+            </span>
           </div>
         )}
         <div className="flex items-center gap-2 text-sm">
