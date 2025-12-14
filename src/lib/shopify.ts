@@ -266,11 +266,8 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
 
 // Fetch all tube products from Shopify
 export async function fetchTubeProducts(productType?: string): Promise<TubeSpec[]> {
-  // Fetch all products - filtering is done by metafield presence
-  const variables: { first: number; query?: string } = { first: 100 };
-  if (productType) {
-    variables.query = productType;
-  }
+  // Filter by exact product type for tubes
+  const query = productType || 'product_type:"Parts & Accessories - Components - Tubes"';
   
   const response = await storefrontApiRequest<{
     data: {
@@ -278,7 +275,7 @@ export async function fetchTubeProducts(productType?: string): Promise<TubeSpec[
         edges: Array<{ node: ShopifyTubeProduct }>;
       };
     };
-  }>(TUBES_QUERY, variables);
+  }>(TUBES_QUERY, { first: 100, query });
 
   const products = response.data.products.edges;
   const tubes: TubeSpec[] = [];
