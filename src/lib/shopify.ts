@@ -45,37 +45,37 @@ const TUBES_QUERY = `
               }
             }
           }
-          wheelSizes: metafield(namespace: "custom", key: "wheel_sizes") {
+          wheelSizes: metafield(namespace: "specs", key: "wheel_sizes") {
             value
           }
-          widthMin: metafield(namespace: "custom", key: "width_min") {
+          widthMin: metafield(namespace: "specs", key: "width_min") {
             value
           }
-          widthMax: metafield(namespace: "custom", key: "width_max") {
+          widthMax: metafield(namespace: "specs", key: "width_max") {
             value
           }
-          diameterMin: metafield(namespace: "custom", key: "diameter_min") {
+          diameterMin: metafield(namespace: "specs", key: "diameter_min") {
             value
           }
-          diameterMax: metafield(namespace: "custom", key: "diameter_max") {
+          diameterMax: metafield(namespace: "specs", key: "diameter_max") {
             value
           }
-          valveType: metafield(namespace: "custom", key: "valve_type") {
+          valveType: metafield(namespace: "specs", key: "valve_type") {
             value
           }
-          valveLength: metafield(namespace: "custom", key: "valve_length") {
+          valveLength: metafield(namespace: "specs", key: "valve_length") {
             value
           }
-          itemNumber: metafield(namespace: "custom", key: "item_number") {
+          itemNumber: metafield(namespace: "specs", key: "item_number") {
             value
           }
-          execution: metafield(namespace: "custom", key: "execution") {
+          execution: metafield(namespace: "specs", key: "execution") {
             value
           }
-          material: metafield(namespace: "custom", key: "material") {
+          material: metafield(namespace: "specs", key: "material") {
             value
           }
-          weight: metafield(namespace: "custom", key: "weight") {
+          weight: metafield(namespace: "specs", key: "weight") {
             value
           }
         }
