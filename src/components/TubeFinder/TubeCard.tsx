@@ -2,6 +2,8 @@ import { TubeMatch, formatTubeName } from "@/utils/tubeMatcher";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Check, AlertCircle, Weight, Ruler, Gauge, DollarSign } from "lucide-react";
+import prestaValve from "@/assets/presta-valve.svg";
+import schraderValve from "@/assets/schrader-valve.svg";
 
 interface TubeCardProps {
   match: TubeMatch;
@@ -46,12 +48,17 @@ export function TubeCard({ match, index }: TubeCardProps) {
           </h3>
           <Badge
             className={cn(
-              "shrink-0",
+              "shrink-0 flex items-center gap-1",
               tube.valveType === 'Presta' 
                 ? "bg-tube-presta text-white" 
                 : "bg-tube-schrader text-white"
             )}
           >
+            <img 
+              src={tube.valveType === 'Presta' ? prestaValve : schraderValve} 
+              alt="" 
+              className="h-3.5 w-3.5" 
+            />
             {tube.valveType}
           </Badge>
         </div>

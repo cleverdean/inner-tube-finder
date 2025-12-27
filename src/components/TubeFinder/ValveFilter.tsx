@@ -1,4 +1,6 @@
 import { cn } from "@/lib/utils";
+import prestaValve from "@/assets/presta-valve.svg";
+import schraderValve from "@/assets/schrader-valve.svg";
 
 interface ValveFilterProps {
   value: 'Presta' | 'Schrader' | null;
@@ -21,7 +23,7 @@ export function ValveFilter({ value, onChange }: ValveFilterProps) {
             key={option.key ?? 'all'}
             onClick={() => onChange(option.key)}
             className={cn(
-              "px-3 py-1.5 text-sm font-medium rounded-md transition-all",
+              "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-1.5",
               value === option.key
                 ? option.key === 'Presta'
                   ? "bg-tube-presta text-white shadow-sm"
@@ -31,6 +33,12 @@ export function ValveFilter({ value, onChange }: ValveFilterProps) {
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
+            {option.key === 'Presta' && (
+              <img src={prestaValve} alt="" className="h-4 w-4" />
+            )}
+            {option.key === 'Schrader' && (
+              <img src={schraderValve} alt="" className="h-4 w-4" />
+            )}
             {option.label}
           </button>
         ))}
