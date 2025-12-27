@@ -14,6 +14,9 @@ const quickSizes = [
   { label: "Tern 20\"", size: "20x1.5" },
   { label: "Tern 20\" Wide", size: "20x1.75" },
   { label: "Tern 24\"", size: "24x1.5" },
+  // Urban Arrow sizes
+  { label: "Urban Arrow Front", size: "55-406" },
+  { label: "Urban Arrow Rear", size: "55-559" },
 ];
 
 export function QuickSizeButtons({ onSelect }: QuickSizeButtonsProps) {
