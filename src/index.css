@@ -6,34 +6,34 @@
 
 @layer base {
   :root {
-    /* Shadow Aubergine Palette */
-    --background: 0 0% 99%; /* Clean white */
-    --foreground: 264 65% 15%; /* Shadow Aubergine */
+    /* Brand Palette */
+    --background: 210 40% 96%;        /* #F1F5F9 Stone */
+    --foreground: 221 39% 17%;        /* #1F2937 Body Text */
 
     --card: 0 0% 100%;
-    --card-foreground: 264 65% 15%;
+    --card-foreground: 221 39% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 264 65% 15%;
+    --popover-foreground: 221 39% 17%;
 
-    --primary: 264 65% 15%; /* #1E0D3D Shadow Aubergine */
+    --primary: 264 65% 15%;           /* #1E0D3D Shadow Aubergine */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 264 25% 92%; /* Light aubergine */
-    --secondary-foreground: 264 65% 15%;
+    --secondary: 215 14% 47%;         /* #64748B Steel Gray */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 264 20% 95%;
-    --muted-foreground: 264 30% 40%;
+    --muted: 214 32% 91%;             /* #E2E8F0 Cloud */
+    --muted-foreground: 215 14% 47%;  /* Steel Gray */
 
-    --accent: 38 92% 50%; /* #F59E0B Gold */
-    --accent-foreground: 264 65% 15%;
+    --accent: 38 92% 50%;             /* #F59E0B Gold */
+    --accent-foreground: 221 39% 17%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 72% 51%;         /* #DC2626 Badge Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 264 20% 88%;
-    --input: 264 20% 88%;
-    --ring: 38 92% 50%; /* Gold ring for focus */
+    --border: 214 32% 85%;
+    --input: 214 32% 85%;
+    --ring: 38 92% 50%;               /* Gold ring for focus */
 
     --radius: 0.75rem;
 
@@ -41,12 +41,12 @@
     --success: 145 65% 42%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
-    --warning-foreground: 264 65% 15%;
+    --warning-foreground: 221 39% 17%;
 
     /* Tube finder specific */
     --tube-presta: 264 65% 20%;
     --tube-schrader: 38 92% 45%;
-    --tube-card: 264 20% 97%;
+    --tube-card: 210 40% 98%;
     --tube-highlight: 38 92% 50%;
 
     /* Gradients */
@@ -54,15 +54,15 @@
     --gradient-gold: linear-gradient(135deg, hsl(40 90% 52%) 0%, hsl(35 88% 48%) 100%);
     --gradient-gold-hover: linear-gradient(135deg, hsl(45 95% 58%) 0%, hsl(38 92% 52%) 50%, hsl(28 90% 45%) 100%);
     --gradient-aubergine: linear-gradient(135deg, hsl(264 65% 15%) 0%, hsl(264 55% 25%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(264 30% 98%) 0%, hsl(264 25% 95%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(210 40% 96%) 0%, hsl(214 32% 91%) 100%);
 
-    --sidebar-background: 264 30% 98%;
-    --sidebar-foreground: 264 65% 15%;
+    --sidebar-background: 210 40% 96%;
+    --sidebar-foreground: 221 39% 17%;
     --sidebar-primary: 264 65% 15%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 264 20% 95%;
-    --sidebar-accent-foreground: 264 65% 15%;
-    --sidebar-border: 264 20% 88%;
+    --sidebar-accent: 214 32% 91%;
+    --sidebar-accent-foreground: 221 39% 17%;
+    --sidebar-border: 214 32% 85%;
     --sidebar-ring: 38 92% 50%;
   }
 
