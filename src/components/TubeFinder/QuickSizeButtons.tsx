@@ -11,7 +11,6 @@ const quickSizes = [
   { label: "Brompton T Line", size: "35-349" },
   { label: "Brompton G Line", size: "54-406" },
   // Tern sizes (20" / 406 BSD)
-  { label: "Tern 20\"", size: "20x1.5" },
   { label: "Tern 20\" (Wide/Cargo)", size: "60-406" },
   // Urban Arrow sizes
   { label: "Urban Arrow Front", size: "55-406" },
