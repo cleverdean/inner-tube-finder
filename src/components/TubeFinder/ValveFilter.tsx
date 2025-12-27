@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import prestaValve from "@/assets/presta-valve.svg";
 import schraderValve from "@/assets/schrader-valve.svg";
+import allValves from "@/assets/all-valves.svg";
 
 interface ValveFilterProps {
   value: 'Presta' | 'Schrader' | null;
@@ -59,7 +60,14 @@ export function ValveFilter({ value, onChange }: ValveFilterProps) {
             )}
             {option.key === null && (
               <div className="h-14 flex items-center justify-center">
-                <span className="text-2xl">⚙️</span>
+                <img 
+                  src={allValves} 
+                  alt="" 
+                  className={cn(
+                    "h-full w-auto transition-all",
+                    value === option.key ? "opacity-100" : "opacity-60"
+                  )} 
+                />
               </div>
             )}
             <span className="text-sm font-medium">{option.label}</span>
