@@ -57,7 +57,7 @@ export function TubeCard({ match, index }: TubeCardProps) {
             <img 
               src={tube.valveType === 'Presta' ? prestaValve : schraderValve} 
               alt="" 
-              className="h-3.5 w-3.5" 
+              className="h-4 w-auto brightness-0 invert" 
             />
             {tube.valveType}
           </Badge>
