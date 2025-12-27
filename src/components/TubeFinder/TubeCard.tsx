@@ -65,11 +65,13 @@ export function TubeCard({ match, index }: TubeCardProps) {
           {/* Header */}
           <div className="mb-2">
             <h3 className="text-sm font-semibold truncate">
-              {tube.itemNumber}
-            </h3>
-            <p className="text-xs text-muted-foreground truncate">
               {formatTubeName(tube)}
-            </p>
+            </h3>
+            {tube.itemNumber && (
+              <p className="text-xs text-muted-foreground">
+                Item: {tube.itemNumber}
+              </p>
+            )}
           </div>
 
           {/* Specs */}
