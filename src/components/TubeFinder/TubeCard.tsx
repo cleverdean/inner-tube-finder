@@ -40,11 +40,11 @@ export function TubeCard({ match, index }: TubeCardProps) {
         </div>
       )}
 
-      <div className="flex">
+      <div className="flex items-stretch">
         {/* Left column - Large valve icon */}
         <div 
           className={cn(
-            "flex flex-col items-center justify-center p-4 min-w-[100px] self-stretch",
+            "flex flex-col items-center justify-center p-4 min-w-[100px]",
             tube.valveType === 'Presta' 
               ? "bg-primary/10" 
               : "bg-secondary"
