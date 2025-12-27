@@ -26,32 +26,36 @@ export function ValveFilter({ value, onChange }: ValveFilterProps) {
               "flex flex-col items-center gap-2 px-4 py-3 rounded-xl border-2 transition-all min-w-[80px]",
               value === option.key
                 ? option.key === 'Presta'
-                  ? "bg-tube-presta/10 border-tube-presta text-tube-presta shadow-md"
+                  ? "bg-tube-presta/10 border-tube-presta text-tube-presta"
                   : option.key === 'Schrader'
-                  ? "bg-tube-schrader/10 border-tube-schrader text-tube-schrader shadow-md"
-                  : "bg-primary/10 border-primary text-primary shadow-md"
+                  ? "bg-tube-schrader/10 border-tube-schrader text-tube-schrader"
+                  : "bg-primary/10 border-primary text-primary"
                 : "bg-card border-border text-muted-foreground hover:border-muted-foreground/50 hover:bg-muted/50"
             )}
           >
             {option.key === 'Presta' && (
-              <img 
-                src={prestaValve} 
-                alt="" 
-                className={cn(
-                  "h-14 w-auto transition-all",
-                  value === option.key ? "opacity-100" : "opacity-60"
-                )} 
-              />
+              <div className="h-14 flex items-center justify-center">
+                <img 
+                  src={prestaValve} 
+                  alt="" 
+                  className={cn(
+                    "h-full w-auto transition-all",
+                    value === option.key ? "opacity-100" : "opacity-60"
+                  )} 
+                />
+              </div>
             )}
             {option.key === 'Schrader' && (
-              <img 
-                src={schraderValve} 
-                alt="" 
-                className={cn(
-                  "h-14 w-auto transition-all",
-                  value === option.key ? "opacity-100" : "opacity-60"
-                )} 
-              />
+              <div className="h-14 flex items-center justify-center">
+                <img 
+                  src={schraderValve} 
+                  alt="" 
+                  className={cn(
+                    "h-full w-auto transition-all",
+                    value === option.key ? "opacity-100" : "opacity-60"
+                  )} 
+                />
+              </div>
             )}
             {option.key === null && (
               <div className="h-14 flex items-center justify-center">
