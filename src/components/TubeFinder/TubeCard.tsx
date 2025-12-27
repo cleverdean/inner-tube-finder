@@ -46,8 +46,8 @@ export function TubeCard({ match, index }: TubeCardProps) {
           className={cn(
             "flex flex-col items-center justify-center p-4 min-w-[100px]",
             tube.valveType === 'Presta' 
-              ? "bg-tube-presta/15" 
-              : "bg-tube-schrader/15"
+              ? "bg-primary/10" 
+              : "bg-accent/15"
           )}
         >
           <img 

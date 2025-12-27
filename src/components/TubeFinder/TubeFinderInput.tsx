@@ -66,7 +66,7 @@ export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputPr
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           placeholder="Enter tire size (e.g., 700x25c, 26x2.1, 29x2.25)"
-          className="pl-12 pr-24 h-14 text-lg font-mono bg-card border-2 border-primary/20 focus:border-accent focus:ring-accent/20 transition-all shadow-sm"
+          className="pl-12 pr-24 h-14 text-lg font-mono bg-white border-2 border-border focus:border-accent focus:ring-0 transition-all shadow-sm"
         />
         {value && (
           <button
