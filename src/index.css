@@ -4,10 +4,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
+
 @layer base {
   :root {
     /* Brand Palette */
-    --background: 210 40% 96%;        /* #F1F5F9 Stone */
+    --background: 0 0% 100%;        /* #F1F5F9 Stone */
     --foreground: 221 39% 17%;        /* #1F2937 Body Text */
 
     --card: 0 0% 100%;
@@ -16,7 +20,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 221 39% 17%;
 
-    --primary: 264 65% 15%;           /* #1E0D3D Shadow Aubergine */
+    --primary: 229 84% 4.902%;           /* #1E0D3D Shadow Aubergine */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 215 14% 47%;         /* #64748B Steel Gray */
@@ -132,7 +136,7 @@
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
-  
+
   .font-sans {
     font-family: 'Inter', system-ui, sans-serif;
   }
