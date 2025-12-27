@@ -5,14 +5,15 @@ interface QuickSizeButtonsProps {
 }
 
 const quickSizes = [
-  { label: "700c Road", size: "700x25c" },
-  { label: "29er MTB", size: "29x2.25" },
-  { label: "27.5 MTB", size: "27.5x2.1" },
-  { label: "26\" MTB", size: "26x2.0" },
-  { label: "Gravel", size: "700x40c" },
-  { label: "24\" Kids", size: "24x1.75" },
-  { label: "20\" BMX", size: "20x1.75" },
-  { label: "16\" Kids", size: "16x1.75" },
+  // Brompton sizes (16" / 349 BSD)
+  { label: "Brompton C Line", size: "16x1-3/8" },
+  { label: "Brompton P Line", size: "16x1.35" },
+  { label: "Brompton T Line", size: "16x1.35" },
+  { label: "Brompton G Line", size: "16x2.0" },
+  // Tern sizes (20" / 406 BSD)
+  { label: "Tern 20\"", size: "20x1.5" },
+  { label: "Tern 20\" Wide", size: "20x1.75" },
+  { label: "Tern 24\"", size: "24x1.5" },
 ];
 
 export function QuickSizeButtons({ onSelect }: QuickSizeButtonsProps) {
