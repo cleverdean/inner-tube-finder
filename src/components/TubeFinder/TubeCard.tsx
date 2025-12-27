@@ -75,6 +75,9 @@ export function TubeCard({ match, index }: TubeCardProps) {
               <span className="font-medium text-foreground">{tube.widthMin}-{tube.widthMax}</span>mm width
             </span>
             <span>
+              <span className="font-medium text-foreground">{tube.diameterMin}-{tube.diameterMax}</span>mm diameter
+            </span>
+            <span>
               <span className="font-medium text-foreground">{tube.valveLength}</span>mm valve
             </span>
             {tube.weight && (
