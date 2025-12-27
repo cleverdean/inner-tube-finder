@@ -13,7 +13,6 @@ const quickSizes = [
   // Tern sizes (20" / 406 BSD)
   { label: "Tern 20\"", size: "20x1.5" },
   { label: "Tern 20\" (Wide/Cargo)", size: "60-406" },
-  { label: "Tern 24\"", size: "24x1.5" },
   // Urban Arrow sizes
   { label: "Urban Arrow Front", size: "55-406" },
   { label: "Urban Arrow Rear", size: "52-559" },
