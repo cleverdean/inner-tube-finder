@@ -8,6 +8,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+
 @layer base {
   :root {
     /* Brand Palette */
@@ -68,6 +72,9 @@
     --sidebar-accent-foreground: 221 39% 17%;
     --sidebar-border: 214 32% 85%;
     --sidebar-ring: 38 92% 50%;
+    --font-sans: Roboto, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   }
 
   .dark {
@@ -119,6 +126,9 @@
     --sidebar-accent-foreground: 264 20% 95%;
     --sidebar-border: 264 35% 18%;
     --sidebar-ring: 38 92% 50%;
+    --font-sans: Roboto, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   }
 }
 
