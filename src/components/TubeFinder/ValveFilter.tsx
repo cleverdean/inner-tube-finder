@@ -34,10 +34,10 @@ export function ValveFilter({ value, onChange }: ValveFilterProps) {
             )}
           >
             {option.key === 'Presta' && (
-              <img src={prestaValve} alt="" className="h-5 w-auto brightness-0 invert" />
+              <img src={prestaValve} alt="" className="h-8 w-auto brightness-0 invert" />
             )}
             {option.key === 'Schrader' && (
-              <img src={schraderValve} alt="" className="h-5 w-auto brightness-0 invert" />
+              <img src={schraderValve} alt="" className="h-8 w-auto brightness-0 invert" />
             )}
             {option.label}
           </button>
