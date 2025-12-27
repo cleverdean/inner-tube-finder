@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Shadow Aubergine Palette */
-    --background: 264 30% 98%; /* Light aubergine tint */
+    --background: 0 0% 99%; /* Clean white */
     --foreground: 264 65% 15%; /* Shadow Aubergine */
 
     --card: 0 0% 100%;
@@ -123,7 +123,6 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background: var(--gradient-subtle);
   }
 }
 
