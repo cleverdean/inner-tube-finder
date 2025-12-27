@@ -5,11 +5,11 @@ interface QuickSizeButtonsProps {
 }
 
 const quickSizes = [
-  // Brompton sizes (16" / 349 BSD)
-  { label: "Brompton C Line", size: "16x1-3/8" },
-  { label: "Brompton P Line", size: "16x1.35" },
-  { label: "Brompton T Line", size: "16x1.35" },
-  { label: "Brompton G Line", size: "16x2.0" },
+  // Brompton sizes
+  { label: "Brompton C Line", size: "35-349" },
+  { label: "Brompton P Line", size: "35-349" },
+  { label: "Brompton T Line", size: "35-349" },
+  { label: "Brompton G Line", size: "54-406" },
   // Tern sizes (20" / 406 BSD)
   { label: "Tern 20\"", size: "20x1.5" },
   { label: "Tern 20\" Wide", size: "20x1.75" },
