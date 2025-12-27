@@ -4,6 +4,7 @@ import { ValveFilter } from "./ValveFilter";
 import { TubeCard } from "./TubeCard";
 import { QuickSizeButtons } from "./QuickSizeButtons";
 import { ParsedSizeDisplay } from "./ParsedSizeDisplay";
+import { DebugPanel } from "./DebugPanel";
 import { parseTireSize, ParsedTireSize } from "@/utils/tireSizeParser";
 import { findMatchingTubes, TubeMatch } from "@/utils/tubeMatcher";
 import { useTubeProducts } from "@/hooks/useTubeProducts";
@@ -210,6 +211,13 @@ export function TubeFinder() {
           </div>
         </div>
       )}
+
+      {/* Debug Panel */}
+      <DebugPanel 
+        parsedSize={parsedSize} 
+        tubesCount={tubes.length} 
+        matchesCount={matches.length}
+      />
     </div>
   );
 }
