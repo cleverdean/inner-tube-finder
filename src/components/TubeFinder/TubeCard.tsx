@@ -19,7 +19,7 @@ export function TubeCard({ match, index }: TubeCardProps) {
   return (
     <div
       className={cn(
-        "relative bg-card rounded-lg border p-4 transition-all duration-200 animate-fade-in hover:shadow-md",
+        "relative bg-card rounded-lg border p-4 transition-all duration-200 hover:shadow-md",
         isExactMatch && "border-primary ring-1 ring-primary/20",
         isEdgeCase && "border-muted-foreground/50",
         !isExactMatch && !isEdgeCase && "border-border hover:border-muted-foreground/30"
@@ -43,13 +43,19 @@ export function TubeCard({ match, index }: TubeCardProps) {
       {/* Card content */}
       <div className="flex gap-4">
         {/* Valve icon */}
-        <div className="flex flex-col items-center justify-center flex-shrink-0 w-16">
+        <div className={cn(
+          "flex flex-col items-center justify-center flex-shrink-0 w-16 py-2 rounded-md",
+          tube.valveType === 'Presta' ? "bg-primary/5" : "bg-secondary"
+        )}>
           <img 
             src={tube.valveType === 'Presta' ? prestaValve : schraderValve} 
             alt={`${tube.valveType} valve`} 
             className="h-12 w-auto mb-1" 
           />
-          <span className="text-xs font-medium text-muted-foreground">
+          <span className={cn(
+            "text-xs font-medium",
+            tube.valveType === 'Presta' ? "text-primary" : "text-muted-foreground"
+          )}>
             {tube.valveType}
           </span>
         </div>
