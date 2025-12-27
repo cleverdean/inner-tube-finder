@@ -15,31 +15,50 @@ export function ValveFilter({ value, onChange }: ValveFilterProps) {
   ];
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-2">
       <span className="text-sm font-medium text-muted-foreground">Valve Type:</span>
-      <div className="flex gap-1 p-1 bg-muted rounded-lg">
+      <div className="flex gap-3">
         {options.map((option) => (
           <button
             key={option.key ?? 'all'}
             onClick={() => onChange(option.key)}
             className={cn(
-              "px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-1.5",
+              "flex flex-col items-center gap-2 px-4 py-3 rounded-xl border-2 transition-all min-w-[80px]",
               value === option.key
                 ? option.key === 'Presta'
-                  ? "bg-tube-presta text-white shadow-sm"
+                  ? "bg-tube-presta/10 border-tube-presta text-tube-presta shadow-md"
                   : option.key === 'Schrader'
-                  ? "bg-tube-schrader text-white shadow-sm"
-                  : "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
+                  ? "bg-tube-schrader/10 border-tube-schrader text-tube-schrader shadow-md"
+                  : "bg-primary/10 border-primary text-primary shadow-md"
+                : "bg-card border-border text-muted-foreground hover:border-muted-foreground/50 hover:bg-muted/50"
             )}
           >
             {option.key === 'Presta' && (
-              <img src={prestaValve} alt="" className="h-8 w-auto brightness-0 invert" />
+              <img 
+                src={prestaValve} 
+                alt="" 
+                className={cn(
+                  "h-14 w-auto transition-all",
+                  value === option.key ? "opacity-100" : "opacity-60"
+                )} 
+              />
             )}
             {option.key === 'Schrader' && (
-              <img src={schraderValve} alt="" className="h-8 w-auto brightness-0 invert" />
+              <img 
+                src={schraderValve} 
+                alt="" 
+                className={cn(
+                  "h-14 w-auto transition-all",
+                  value === option.key ? "opacity-100" : "opacity-60"
+                )} 
+              />
             )}
-            {option.label}
+            {option.key === null && (
+              <div className="h-14 flex items-center justify-center">
+                <span className="text-2xl">⚙️</span>
+              </div>
+            )}
+            <span className="text-sm font-medium">{option.label}</span>
           </button>
         ))}
       </div>
