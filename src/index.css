@@ -7,101 +7,112 @@
 @layer base {
   :root {
     /* Shadow Aubergine Palette */
-    --background: 210 33% 96%; /* #F1F5F9 Stone */
-    --foreground: 215 28% 17%; /* #1F2937 Text Body */
+    --background: 264 30% 98%; /* Light aubergine tint */
+    --foreground: 264 65% 15%; /* Shadow Aubergine */
 
     --card: 0 0% 100%;
-    --card-foreground: 215 28% 17%;
+    --card-foreground: 264 65% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 28% 17%;
+    --popover-foreground: 264 65% 15%;
 
     --primary: 264 65% 15%; /* #1E0D3D Shadow Aubergine */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 16% 47%; /* #64748B Steel Gray */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 264 25% 92%; /* Light aubergine */
+    --secondary-foreground: 264 65% 15%;
 
-    --muted: 210 40% 93%; /* #E2E8F0 Cloud */
-    --muted-foreground: 215 16% 47%;
+    --muted: 264 20% 95%;
+    --muted-foreground: 264 30% 40%;
 
     --accent: 38 92% 50%; /* #F59E0B Gold */
-    --accent-foreground: 215 28% 17%;
+    --accent-foreground: 264 65% 15%;
 
-    --destructive: 0 72% 51%; /* #DC2626 Badge Red */
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 31% 85%;
-    --input: 210 31% 85%;
-    --ring: 264 65% 15%;
+    --border: 264 20% 88%;
+    --input: 264 20% 88%;
+    --ring: 38 92% 50%; /* Gold ring for focus */
 
     --radius: 0.75rem;
 
     /* Custom tokens */
     --success: 145 65% 42%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%; /* Gold */
-    --warning-foreground: 215 28% 17%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 264 65% 15%;
 
     /* Tube finder specific */
-    --tube-presta: 264 65% 15%; /* Shadow Aubergine for Presta */
-    --tube-schrader: 38 92% 50%; /* Gold for Schrader */
-    --tube-card: 210 33% 96%;
-    --tube-highlight: 0 72% 51%;
+    --tube-presta: 264 65% 20%;
+    --tube-schrader: 38 92% 45%;
+    --tube-card: 264 20% 97%;
+    --tube-highlight: 38 92% 50%;
 
-    --sidebar-background: 210 33% 96%;
-    --sidebar-foreground: 215 28% 17%;
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(264 65% 15%) 0%, hsl(264 50% 25%) 50%, hsl(38 92% 50%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(38 85% 55%) 100%);
+    --gradient-aubergine: linear-gradient(135deg, hsl(264 65% 15%) 0%, hsl(264 55% 25%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(264 30% 98%) 0%, hsl(264 25% 95%) 100%);
+
+    --sidebar-background: 264 30% 98%;
+    --sidebar-foreground: 264 65% 15%;
     --sidebar-primary: 264 65% 15%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 93%;
-    --sidebar-accent-foreground: 215 28% 17%;
-    --sidebar-border: 210 31% 85%;
-    --sidebar-ring: 264 65% 15%;
+    --sidebar-accent: 264 20% 95%;
+    --sidebar-accent-foreground: 264 65% 15%;
+    --sidebar-border: 264 20% 88%;
+    --sidebar-ring: 38 92% 50%;
   }
 
   .dark {
     /* Shadow Aubergine Dark Mode */
-    --background: 264 50% 8%;
-    --foreground: 210 33% 96%;
+    --background: 264 50% 6%;
+    --foreground: 264 20% 95%;
 
-    --card: 264 45% 12%;
-    --card-foreground: 210 33% 96%;
+    --card: 264 45% 10%;
+    --card-foreground: 264 20% 95%;
 
-    --popover: 264 45% 12%;
-    --popover-foreground: 210 33% 96%;
+    --popover: 264 45% 10%;
+    --popover-foreground: 264 20% 95%;
 
-    --primary: 264 55% 35%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 92% 50%; /* Gold as primary in dark mode */
+    --primary-foreground: 264 65% 10%;
 
-    --secondary: 215 16% 35%;
-    --secondary-foreground: 210 33% 96%;
+    --secondary: 264 40% 18%;
+    --secondary-foreground: 264 20% 95%;
 
-    --muted: 264 30% 18%;
-    --muted-foreground: 215 16% 60%;
+    --muted: 264 35% 15%;
+    --muted-foreground: 264 20% 65%;
 
-    --accent: 38 92% 50%;
-    --accent-foreground: 215 28% 17%;
+    --accent: 264 55% 45%; /* Aubergine as accent in dark */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 264 30% 20%;
-    --input: 264 30% 20%;
-    --ring: 264 55% 35%;
+    --border: 264 35% 18%;
+    --input: 264 35% 18%;
+    --ring: 38 92% 50%;
 
-    --tube-presta: 264 55% 45%;
+    --tube-presta: 264 55% 55%;
     --tube-schrader: 38 92% 55%;
-    --tube-card: 264 45% 14%;
-    --tube-highlight: 0 72% 51%;
+    --tube-card: 264 45% 12%;
+    --tube-highlight: 38 92% 50%;
 
-    --sidebar-background: 264 50% 8%;
-    --sidebar-foreground: 210 33% 96%;
-    --sidebar-primary: 264 55% 35%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 264 30% 18%;
-    --sidebar-accent-foreground: 210 33% 96%;
-    --sidebar-border: 264 30% 20%;
-    --sidebar-ring: 264 55% 35%;
+    --gradient-hero: linear-gradient(135deg, hsl(264 50% 8%) 0%, hsl(264 45% 15%) 50%, hsl(38 92% 45%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(38 85% 60%) 100%);
+    --gradient-aubergine: linear-gradient(135deg, hsl(264 45% 12%) 0%, hsl(264 50% 20%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(264 50% 6%) 0%, hsl(264 45% 10%) 100%);
+
+    --sidebar-background: 264 50% 6%;
+    --sidebar-foreground: 264 20% 95%;
+    --sidebar-primary: 38 92% 50%;
+    --sidebar-primary-foreground: 264 65% 10%;
+    --sidebar-accent: 264 35% 15%;
+    --sidebar-accent-foreground: 264 20% 95%;
+    --sidebar-border: 264 35% 18%;
+    --sidebar-ring: 38 92% 50%;
   }
 }
 
@@ -112,6 +123,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    background: var(--gradient-subtle);
   }
 }
 
@@ -125,7 +137,20 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .bg-gradient-aubergine {
+    background: var(--gradient-aubergine);
   }
 
   .animate-fade-in {
@@ -138,6 +163,14 @@
 
   .animate-pulse-subtle {
     animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px hsl(38 92% 50% / 0.3);
+  }
+
+  .glow-aubergine {
+    box-shadow: 0 0 20px hsl(264 65% 15% / 0.2);
   }
 }
 

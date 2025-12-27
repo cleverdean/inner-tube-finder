@@ -12,14 +12,14 @@ const Index = () => {
         />
       </Helmet>
       
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen">
         <div className="container py-12 px-4 md:py-16">
           <TubeFinder />
         </div>
         
         {/* Footer */}
-        <footer className="border-t border-border py-6">
-          <div className="container text-center text-sm text-muted-foreground">
+        <footer className="border-t border-primary/10 py-6 bg-gradient-aubergine">
+          <div className="container text-center text-sm text-white/80">
             <p>Enter your tire size to find compatible inner tubes.</p>
           </div>
         </footer>

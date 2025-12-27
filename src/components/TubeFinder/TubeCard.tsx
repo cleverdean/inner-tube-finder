@@ -19,22 +19,22 @@ export function TubeCard({ match, index }: TubeCardProps) {
   return (
     <div
       className={cn(
-        "relative bg-card rounded-xl border-2 transition-all duration-300 animate-slide-up hover:shadow-lg overflow-hidden",
-        isExactMatch && "border-primary/50 shadow-md",
-        isEdgeCase && "border-warning/50",
-        !isExactMatch && !isEdgeCase && "border-border"
+        "relative bg-card rounded-xl border-2 transition-all duration-300 animate-slide-up hover:shadow-xl overflow-hidden",
+        isExactMatch && "border-accent glow-gold shadow-lg",
+        isEdgeCase && "border-accent/50",
+        !isExactMatch && !isEdgeCase && "border-primary/20 hover:border-primary/40"
       )}
       style={{ animationDelay: `${index * 50}ms` }}
     >
       {/* Match indicator */}
       {isExactMatch && (
-        <div className="absolute -top-2 -right-2 flex items-center gap-1 px-2 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-full z-10">
+        <div className="absolute -top-2 -right-2 flex items-center gap-1 px-3 py-1 bg-gradient-gold text-primary-foreground text-xs font-semibold rounded-full z-10 shadow-md">
           <Check className="h-3 w-3" />
           Best Match
         </div>
       )}
       {isEdgeCase && (
-        <div className="absolute -top-2 -right-2 flex items-center gap-1 px-2 py-1 bg-warning text-warning-foreground text-xs font-medium rounded-full z-10">
+        <div className="absolute -top-2 -right-2 flex items-center gap-1 px-3 py-1 bg-gradient-aubergine text-primary-foreground text-xs font-semibold rounded-full z-10 shadow-md">
           <AlertCircle className="h-3 w-3" />
           Edge Fit
         </div>

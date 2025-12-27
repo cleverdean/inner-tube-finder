@@ -57,7 +57,7 @@ export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputPr
   return (
     <div className="relative w-full">
       <div className="relative group">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground transition-colors group-focus-within:text-primary" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground transition-colors group-focus-within:text-accent" />
         <Input
           ref={inputRef}
           value={value}
@@ -66,12 +66,12 @@ export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputPr
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           placeholder="Enter tire size (e.g., 700x25c, 26x2.1, 29x2.25)"
-          className="pl-12 pr-24 h-14 text-lg font-mono bg-card border-2 border-border focus:border-primary transition-all shadow-sm"
+          className="pl-12 pr-24 h-14 text-lg font-mono bg-card border-2 border-primary/20 focus:border-accent focus:ring-accent/20 transition-all shadow-sm"
         />
         {value && (
           <button
             onClick={handleClear}
-            className="absolute right-20 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-muted transition-colors"
+            className="absolute right-20 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-secondary transition-colors"
             type="button"
           >
             <X className="h-4 w-4 text-muted-foreground" />
@@ -79,7 +79,8 @@ export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputPr
         )}
         <Button
           onClick={onSearch}
-          className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-4"
+          variant="gold"
+          className="absolute right-2 top-1/2 -translate-y-1/2 h-10 px-5 font-semibold"
         >
           Find
         </Button>

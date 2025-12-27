@@ -95,17 +95,17 @@ export function TubeFinder() {
     <div className="w-full max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
-          <Bike className="w-8 h-8 text-primary" />
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-aubergine mb-4 shadow-lg glow-aubergine">
+          <Bike className="w-8 h-8 text-white" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold mb-3">
+        <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gradient">
           Inner Tube Finder
         </h1>
         <p className="text-muted-foreground max-w-md mx-auto">
           Enter your tire size to find the perfect inner tube. We'll match it with compatible options from our catalog.
         </p>
         {tubes.length > 0 && (
-          <p className="text-sm text-muted-foreground mt-2">
+          <p className="text-sm text-accent font-medium mt-2">
             {tubes.length} tubes in catalog
           </p>
         )}
