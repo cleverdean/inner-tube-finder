@@ -6,100 +6,102 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 20% 10%;
+    /* Shadow Aubergine Palette */
+    --background: 210 33% 96%; /* #F1F5F9 Stone */
+    --foreground: 215 28% 17%; /* #1F2937 Text Body */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card-foreground: 215 28% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover-foreground: 215 28% 17%;
 
-    --primary: 25 95% 53%;
+    --primary: 264 65% 15%; /* #1E0D3D Shadow Aubergine */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 20% 20%;
+    --secondary: 215 16% 47%; /* #64748B Steel Gray */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 94%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 210 40% 93%; /* #E2E8F0 Cloud */
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 200 80% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 38 92% 50%; /* #F59E0B Gold */
+    --accent-foreground: 215 28% 17%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%; /* #DC2626 Badge Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 25 95% 53%;
+    --border: 210 31% 85%;
+    --input: 210 31% 85%;
+    --ring: 264 65% 15%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
     --success: 145 65% 42%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 10%;
+    --warning: 38 92% 50%; /* Gold */
+    --warning-foreground: 215 28% 17%;
 
     /* Tube finder specific */
-    --tube-presta: 200 80% 50%;
-    --tube-schrader: 145 65% 42%;
-    --tube-card: 220 20% 98%;
-    --tube-highlight: 25 95% 53%;
+    --tube-presta: 264 65% 15%; /* Shadow Aubergine for Presta */
+    --tube-schrader: 38 92% 50%; /* Gold for Schrader */
+    --tube-card: 210 33% 96%;
+    --tube-highlight: 0 72% 51%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 210 33% 96%;
+    --sidebar-foreground: 215 28% 17%;
+    --sidebar-primary: 264 65% 15%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 93%;
+    --sidebar-accent-foreground: 215 28% 17%;
+    --sidebar-border: 210 31% 85%;
+    --sidebar-ring: 264 65% 15%;
   }
 
   .dark {
-    --background: 220 20% 8%;
-    --foreground: 220 15% 95%;
+    /* Shadow Aubergine Dark Mode */
+    --background: 264 50% 8%;
+    --foreground: 210 33% 96%;
 
-    --card: 220 20% 12%;
-    --card-foreground: 220 15% 95%;
+    --card: 264 45% 12%;
+    --card-foreground: 210 33% 96%;
 
-    --popover: 220 20% 12%;
-    --popover-foreground: 220 15% 95%;
+    --popover: 264 45% 12%;
+    --popover-foreground: 210 33% 96%;
 
-    --primary: 25 95% 55%;
+    --primary: 264 55% 35%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 220 15% 90%;
+    --secondary: 215 16% 35%;
+    --secondary-foreground: 210 33% 96%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 264 30% 18%;
+    --muted-foreground: 215 16% 60%;
 
-    --accent: 200 80% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 215 28% 17%;
 
-    --destructive: 0 70% 50%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 25 95% 55%;
+    --border: 264 30% 20%;
+    --input: 264 30% 20%;
+    --ring: 264 55% 35%;
 
-    --tube-presta: 200 80% 55%;
-    --tube-schrader: 145 65% 50%;
-    --tube-card: 220 20% 14%;
-    --tube-highlight: 25 95% 55%;
+    --tube-presta: 264 55% 45%;
+    --tube-schrader: 38 92% 55%;
+    --tube-card: 264 45% 14%;
+    --tube-highlight: 0 72% 51%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 264 50% 8%;
+    --sidebar-foreground: 210 33% 96%;
+    --sidebar-primary: 264 55% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 264 30% 18%;
+    --sidebar-accent-foreground: 210 33% 96%;
+    --sidebar-border: 264 30% 20%;
+    --sidebar-ring: 264 55% 35%;
   }
 }
 
