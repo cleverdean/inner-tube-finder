@@ -95,9 +95,6 @@ export function TubeFinder() {
     <div className="w-full max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 shadow-lg">
-          <Bike className="w-8 h-8 text-primary-foreground" />
-        </div>
         <h1 className="text-3xl md:text-4xl font-bold mb-3">
           Inner Tube Finder
         </h1>
