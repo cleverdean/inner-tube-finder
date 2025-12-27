@@ -51,7 +51,8 @@
 
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(264 65% 15%) 0%, hsl(264 50% 25%) 50%, hsl(38 92% 50%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(45 95% 55%) 0%, hsl(38 92% 50%) 50%, hsl(25 90% 45%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(40 90% 52%) 0%, hsl(35 88% 48%) 100%);
+    --gradient-gold-hover: linear-gradient(135deg, hsl(45 95% 58%) 0%, hsl(38 92% 52%) 50%, hsl(28 90% 45%) 100%);
     --gradient-aubergine: linear-gradient(135deg, hsl(264 65% 15%) 0%, hsl(264 55% 25%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(264 30% 98%) 0%, hsl(264 25% 95%) 100%);
 
@@ -101,7 +102,8 @@
     --tube-highlight: 38 92% 50%;
 
     --gradient-hero: linear-gradient(135deg, hsl(264 50% 8%) 0%, hsl(264 45% 15%) 50%, hsl(38 92% 45%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(45 95% 60%) 0%, hsl(38 92% 50%) 50%, hsl(25 90% 48%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(40 90% 52%) 0%, hsl(35 88% 48%) 100%);
+    --gradient-gold-hover: linear-gradient(135deg, hsl(45 95% 62%) 0%, hsl(38 92% 52%) 50%, hsl(28 90% 48%) 100%);
     --gradient-aubergine: linear-gradient(135deg, hsl(264 45% 12%) 0%, hsl(264 50% 20%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(264 50% 6%) 0%, hsl(264 45% 10%) 100%);
 
