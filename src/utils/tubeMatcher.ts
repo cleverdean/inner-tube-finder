@@ -10,6 +10,26 @@ export interface TubeMatch {
   };
 }
 
+export interface TubeRejection {
+  tube: TubeSpec;
+  reason: string;
+  details: {
+    inputWidth: number;
+    inputDiameter: number;
+    tubeWidthRange: string;
+    tubeDiameterRange: string;
+    valveType: string;
+    valveFilter: string | null;
+  };
+}
+
+// Debug state for tube matching
+export const matchDebugState = {
+  lastSearch: null as ParsedTireSize | null,
+  rejections: [] as TubeRejection[],
+  matches: [] as TubeMatch[],
+};
+
 /**
  * Find tubes that match the given tire size from provided tube list
  */
@@ -18,22 +38,57 @@ export function findMatchingTubes(
   tubes: TubeSpec[],
   valveFilter?: 'Presta' | 'Schrader' | null
 ): TubeMatch[] {
+  // Reset debug state
+  matchDebugState.lastSearch = parsedSize;
+  matchDebugState.rejections = [];
+  matchDebugState.matches = [];
+
   const matches: TubeMatch[] = [];
 
   for (const tube of tubes) {
+    const debugDetails = {
+      inputWidth: parsedSize.width,
+      inputDiameter: parsedSize.diameter,
+      tubeWidthRange: `${tube.widthMin}-${tube.widthMax}mm`,
+      tubeDiameterRange: `${tube.diameterMin}-${tube.diameterMax}mm`,
+      valveType: tube.valveType,
+      valveFilter: valveFilter ?? null,
+    };
+
     // Check diameter compatibility
     const diameterMatch = checkDiameterMatch(parsedSize.diameter, tube);
-    if (!diameterMatch) continue;
+    if (!diameterMatch) {
+      matchDebugState.rejections.push({
+        tube,
+        reason: `Diameter ${parsedSize.diameter}mm not in range ${tube.diameterMin}-${tube.diameterMax}mm (±3mm tolerance)`,
+        details: debugDetails,
+      });
+      continue;
+    }
 
     // Check valve filter
-    if (valveFilter && tube.valveType !== valveFilter) continue;
+    if (valveFilter && tube.valveType !== valveFilter) {
+      matchDebugState.rejections.push({
+        tube,
+        reason: `Valve type ${tube.valveType} doesn't match filter ${valveFilter}`,
+        details: debugDetails,
+      });
+      continue;
+    }
 
     // Check width compatibility (if width is specified)
     let widthMatch: 'exact' | 'compatible' | 'edge' | null = null;
     
     if (parsedSize.width > 0) {
       widthMatch = checkWidthMatch(parsedSize.width, tube);
-      if (!widthMatch) continue;
+      if (!widthMatch) {
+        matchDebugState.rejections.push({
+          tube,
+          reason: `Width ${parsedSize.width}mm not in range ${tube.widthMin}-${tube.widthMax}mm (±5mm tolerance)`,
+          details: debugDetails,
+        });
+        continue;
+      }
     } else {
       // If no width specified, consider all diameter-matching tubes
       widthMatch = 'compatible';
@@ -42,15 +97,20 @@ export function findMatchingTubes(
     // Calculate match score
     const matchScore = calculateMatchScore(parsedSize, tube, widthMatch, diameterMatch);
 
-    matches.push({
+    const match: TubeMatch = {
       tube,
       matchScore,
       matchDetails: {
         widthMatch,
         diameterMatch
       }
-    });
+    };
+    
+    matches.push(match);
+    matchDebugState.matches.push(match);
   }
+
+  console.log(`Tube matching: ${matches.length} matches, ${matchDebugState.rejections.length} rejections`);
 
   // Sort by match score (higher is better)
   return matches.sort((a, b) => b.matchScore - a.matchScore);

@@ -203,25 +203,56 @@ function parseWheelSizes(value: string | null): string[] {
   return value.split(',').map(s => s.trim()).filter(Boolean);
 }
 
+// Track skipped products for debugging
+export interface SkippedProduct {
+  handle: string;
+  title: string;
+  reason: string;
+  rawMetafields: {
+    widthMin: string | null;
+    widthMax: string | null;
+    diameterMin: string | null;
+    diameterMax: string | null;
+    valveType: string | null;
+  };
+}
+
+export const debugState = {
+  skippedProducts: [] as SkippedProduct[],
+  convertedProducts: [] as TubeSpec[],
+  rawApiResponse: null as unknown,
+};
+
 // Convert Shopify product to TubeSpec
 function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
-  const widthMin = product.widthMin?.value ? parseFloat(product.widthMin.value) : null;
-  const widthMax = product.widthMax?.value ? parseFloat(product.widthMax.value) : null;
-  const diameterMin = product.diameterMin?.value ? parseFloat(product.diameterMin.value) : null;
-  const diameterMax = product.diameterMax?.value ? parseFloat(product.diameterMax.value) : null;
-  
-  // Log metafield values for debugging
-  console.log(`Product ${product.handle} metafields:`, {
-    widthMin: product.widthMin?.value,
-    widthMax: product.widthMax?.value,
-    diameterMin: product.diameterMin?.value,
-    diameterMax: product.diameterMax?.value,
-    valveType: product.valveType?.value,
-  });
+  const rawMetafields = {
+    widthMin: product.widthMin?.value ?? null,
+    widthMax: product.widthMax?.value ?? null,
+    diameterMin: product.diameterMin?.value ?? null,
+    diameterMax: product.diameterMax?.value ?? null,
+    valveType: product.valveType?.value ?? null,
+  };
+
+  const widthMin = rawMetafields.widthMin ? parseFloat(rawMetafields.widthMin) : null;
+  const widthMax = rawMetafields.widthMax ? parseFloat(rawMetafields.widthMax) : null;
+  const diameterMin = rawMetafields.diameterMin ? parseFloat(rawMetafields.diameterMin) : null;
+  const diameterMax = rawMetafields.diameterMax ? parseFloat(rawMetafields.diameterMax) : null;
   
   // Skip products without required tube specifications
   if (widthMin === null || widthMax === null || diameterMin === null || diameterMax === null) {
-    console.log(`Skipping product ${product.handle}: missing dimension metafields`);
+    const reason = `Missing: ${[
+      widthMin === null ? 'widthMin' : null,
+      widthMax === null ? 'widthMax' : null,
+      diameterMin === null ? 'diameterMin' : null,
+      diameterMax === null ? 'diameterMax' : null,
+    ].filter(Boolean).join(', ')}`;
+    
+    debugState.skippedProducts.push({
+      handle: product.handle,
+      title: product.title,
+      reason,
+      rawMetafields,
+    });
     return null;
   }
   
@@ -266,6 +297,10 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
 
 // Fetch all tube products from Shopify
 export async function fetchTubeProducts(productType?: string): Promise<TubeSpec[]> {
+  // Reset debug state
+  debugState.skippedProducts = [];
+  debugState.convertedProducts = [];
+  
   // Filter by exact product type for tubes
   const query = productType || 'product_type:"Parts & Accessories - Components - Tubes"';
   
@@ -277,6 +312,9 @@ export async function fetchTubeProducts(productType?: string): Promise<TubeSpec[
     };
   }>(TUBES_QUERY, { first: 100, query });
 
+  // Store raw response for debugging
+  debugState.rawApiResponse = response;
+
   const products = response.data.products.edges;
   const tubes: TubeSpec[] = [];
   
@@ -286,8 +324,11 @@ export async function fetchTubeProducts(productType?: string): Promise<TubeSpec[
     const tubeSpec = convertToTubeSpec(node);
     if (tubeSpec) {
       tubes.push(tubeSpec);
+      debugState.convertedProducts.push(tubeSpec);
     }
   }
+
+  console.log(`Converted ${tubes.length} tubes, skipped ${debugState.skippedProducts.length} products`);
 
   return tubes;
 }
