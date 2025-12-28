@@ -9,6 +9,7 @@ import { parseTireSize, ParsedTireSize } from "@/utils/tireSizeParser";
 import { findMatchingTubes, TubeMatch } from "@/utils/tubeMatcher";
 import { useTubeProducts } from "@/hooks/useTubeProducts";
 import { AlertCircle, Bike, Loader2 } from "lucide-react";
+import tireSizeFormats from "@/assets/tire-size-formats.webp";
 
 export function TubeFinder() {
   const [inputValue, setInputValue] = useState("");
@@ -106,6 +107,20 @@ export function TubeFinder() {
             {tubes.length} tubes in catalog
           </p>
         )}
+      </div>
+
+      {/* Tire size format reference image */}
+      <div className="mb-8 flex flex-col items-center">
+        <div className="relative max-w-md w-full rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+          <img 
+            src={tireSizeFormats} 
+            alt="Tire size format examples showing ETRTO, Inch, and French sizing systems on a bike tire sidewall" 
+            className="w-full h-auto"
+          />
+        </div>
+        <p className="text-sm text-muted-foreground mt-3 text-center">
+          Find these markings on your tire sidewall
+        </p>
       </div>
 
       {/* Search input */}
