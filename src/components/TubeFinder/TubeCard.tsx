@@ -1,9 +1,10 @@
 import { TubeMatch, formatTubeName } from "@/utils/tubeMatcher";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Check, AlertCircle } from "lucide-react";
+import { Check, AlertCircle, ExternalLink } from "lucide-react";
 import prestaValve from "@/assets/presta-valve.svg";
 import schraderValve from "@/assets/schrader-valve.svg";
+import { SHOPIFY_STORE_PERMANENT_DOMAIN } from "@/lib/shopify";
 
 interface TubeCardProps {
   match: TubeMatch;
@@ -15,11 +16,16 @@ export function TubeCard({ match, index }: TubeCardProps) {
   
   const isExactMatch = matchDetails.widthMatch === 'exact' && matchDetails.diameterMatch === 'exact';
   const isEdgeCase = matchDetails.widthMatch === 'edge';
+  
+  const productUrl = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/products/${tube.handle}`;
 
   return (
-    <div
+    <a
+      href={productUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       className={cn(
-        "relative bg-card rounded-lg border p-4 transition-all duration-200 hover:shadow-md",
+        "relative bg-card rounded-lg border p-4 transition-all duration-200 hover:shadow-md block group",
         isExactMatch && "border-primary ring-1 ring-primary/20",
         isEdgeCase && "border-muted-foreground/50",
         !isExactMatch && !isEdgeCase && "border-border hover:border-muted-foreground/30"
@@ -63,10 +69,11 @@ export function TubeCard({ match, index }: TubeCardProps) {
         {/* Main content */}
         <div className="flex-1 min-w-0">
           {/* Header */}
-          <div className="mb-2">
-            <h3 className="text-sm font-semibold truncate">
+          <div className="mb-2 flex items-center gap-2">
+            <h3 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">
               {formatTubeName(tube)}
             </h3>
+            <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
           </div>
 
           {/* Specs */}
@@ -105,6 +112,6 @@ export function TubeCard({ match, index }: TubeCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
