@@ -7,7 +7,8 @@ import { ParsedSizeDisplay } from "./ParsedSizeDisplay";
 import { parseTireSize, ParsedTireSize } from "@/utils/tireSizeParser";
 import { findMatchingTubes, TubeMatch } from "@/utils/tubeMatcher";
 import { useTubeProducts } from "@/hooks/useTubeProducts";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, X } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import tireSizeFormats from "@/assets/tire-size-formats.webp";
 
 export function TubeFinder() {
@@ -17,6 +18,7 @@ export function TubeFinder() {
   const [matches, setMatches] = useState<TubeMatch[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isResultsOpen, setIsResultsOpen] = useState(false);
 
   // Fetch tube products from Shopify
   const { tubes, isLoading: isLoadingTubes, error: tubesError } = useTubeProducts();
@@ -44,6 +46,7 @@ export function TubeFinder() {
     setParsedSize(parsed);
     const foundMatches = findMatchingTubes(parsed, tubes, valveFilter);
     setMatches(foundMatches);
+    setIsResultsOpen(true);
   }, [inputValue, valveFilter, tubes]);
 
   const handleQuickSelect = (size: string) => {
@@ -53,9 +56,11 @@ export function TubeFinder() {
       const parsed = parseTireSize(size);
       if (parsed) {
         setParsedSize(parsed);
-        setMatches(findMatchingTubes(parsed, tubes, valveFilter));
+        const foundMatches = findMatchingTubes(parsed, tubes, valveFilter);
+        setMatches(foundMatches);
         setHasSearched(true);
         setError(null);
+        setIsResultsOpen(true);
       }
     }, 0);
   };
@@ -63,7 +68,8 @@ export function TubeFinder() {
   const handleValveChange = (valve: 'Presta' | 'Schrader' | null) => {
     setValveFilter(valve);
     if (parsedSize) {
-      setMatches(findMatchingTubes(parsedSize, tubes, valve));
+      const foundMatches = findMatchingTubes(parsedSize, tubes, valve);
+      setMatches(foundMatches);
     }
   };
 
@@ -149,13 +155,6 @@ export function TubeFinder() {
         </div>
       )}
 
-      {/* Parsed size display */}
-      {parsedSize && !error && (
-        <div className="mb-4">
-          <ParsedSizeDisplay parsed={parsedSize} />
-        </div>
-      )}
-
       {/* No tubes available message */}
       {tubes.length === 0 && !isLoadingTubes && (
         <div className="text-center py-12 px-4 bg-muted/50 rounded-xl">
@@ -168,35 +167,51 @@ export function TubeFinder() {
         </div>
       )}
 
-      {/* Results */}
-      {hasSearched && !error && tubes.length > 0 && (
-        <div>
-          {matches.length > 0 ? (
-            <>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">
-                  {matches.length} Compatible Tube{matches.length !== 1 ? 's' : ''} Found
-                </h2>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
+      {/* Results Modal */}
+      <Dialog open={isResultsOpen} onOpenChange={setIsResultsOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span>
+                {matches.length > 0 
+                  ? `${matches.length} Compatible Tube${matches.length !== 1 ? 's' : ''} Found`
+                  : 'No Matching Tubes'}
+              </span>
+            </DialogTitle>
+          </DialogHeader>
+          
+          {/* Parsed size in modal */}
+          {parsedSize && (
+            <div className="mb-4">
+              <ParsedSizeDisplay parsed={parsedSize} />
+            </div>
+          )}
+
+          {/* Valve filter in modal for easy adjustment */}
+          <div className="flex justify-center mb-4 pb-4 border-b border-border">
+            <ValveFilter value={valveFilter} onChange={handleValveChange} />
+          </div>
+          
+          <div className="overflow-y-auto flex-1 pr-2">
+            {matches.length > 0 ? (
+              <div className="grid gap-4">
                 {matches.map((match, index) => (
                   <TubeCard key={match.tube.handle} match={match} index={index} />
                 ))}
               </div>
-            </>
-          ) : parsedSize && (
-            <div className="text-center py-12 px-4 bg-muted/50 rounded-xl">
-              <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-medium mb-2">No Matching Tubes Found</h3>
-              <p className="text-muted-foreground max-w-md mx-auto">
-                We couldn't find a tube for {inputValue}. This size might not be in our current catalog. 
-                Try adjusting your search or removing the valve filter.
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
+            ) : parsedSize && (
+              <div className="text-center py-8 px-4">
+                <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-lg font-medium mb-2">No Matching Tubes Found</h3>
+                <p className="text-muted-foreground max-w-md mx-auto">
+                  We couldn't find a tube for {inputValue}. This size might not be in our current catalog. 
+                  Try removing the valve filter.
+                </p>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
