@@ -18,7 +18,7 @@ const Index = () => {
         </div>
         
         {/* Footer */}
-        <footer className="border-t border-primary/10 py-6 bg-gradient-aubergine">
+        <footer className="py-6 bg-gradient-aubergine">
           <div className="container text-center text-sm text-white/80">
             <p>Enter your tire size to find compatible inner tubes.</p>
           </div>
