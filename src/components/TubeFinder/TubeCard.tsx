@@ -25,7 +25,7 @@ export function TubeCard({ match, index }: TubeCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "relative bg-card rounded-lg border p-4 transition-all duration-200 hover:shadow-md block group",
+        "relative bg-card rounded-lg border p-4 transition-all duration-200 hover:shadow-md block group overflow-visible mt-2",
         isExactMatch && "border-primary ring-1 ring-primary/20",
         isEdgeCase && "border-muted-foreground/50",
         !isExactMatch && !isEdgeCase && "border-border hover:border-muted-foreground/30"
