@@ -4,11 +4,10 @@ import { ValveFilter } from "./ValveFilter";
 import { TubeCard } from "./TubeCard";
 import { QuickSizeButtons } from "./QuickSizeButtons";
 import { ParsedSizeDisplay } from "./ParsedSizeDisplay";
-import { DebugPanel } from "./DebugPanel";
 import { parseTireSize, ParsedTireSize } from "@/utils/tireSizeParser";
 import { findMatchingTubes, TubeMatch } from "@/utils/tubeMatcher";
 import { useTubeProducts } from "@/hooks/useTubeProducts";
-import { AlertCircle, Bike, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import tireSizeFormats from "@/assets/tire-size-formats.webp";
 
 export function TubeFinder() {
@@ -198,38 +197,6 @@ export function TubeFinder() {
         </div>
       )}
 
-      {/* Initial state */}
-      {!hasSearched && tubes.length > 0 && (
-        <div className="text-center py-12 px-4 bg-muted/30 rounded-xl border-2 border-dashed border-border">
-          <div className="max-w-sm mx-auto">
-            <h3 className="font-medium mb-2">How to Find Your Tire Size</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Look on the sidewall of your tire. You'll see markings like:
-            </p>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center justify-between px-4 py-2 bg-background rounded-lg">
-                <span className="text-muted-foreground">Road bike:</span>
-                <code className="font-mono">700x25c</code>
-              </div>
-              <div className="flex items-center justify-between px-4 py-2 bg-background rounded-lg">
-                <span className="text-muted-foreground">Mountain bike:</span>
-                <code className="font-mono">29x2.25</code>
-              </div>
-              <div className="flex items-center justify-between px-4 py-2 bg-background rounded-lg">
-                <span className="text-muted-foreground">ETRTO format:</span>
-                <code className="font-mono">25-622</code>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Debug Panel */}
-      <DebugPanel 
-        parsedSize={parsedSize} 
-        tubesCount={tubes.length} 
-        matchesCount={matches.length}
-      />
     </div>
   );
 }
