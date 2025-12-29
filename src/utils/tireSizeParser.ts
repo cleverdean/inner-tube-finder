@@ -40,19 +40,29 @@ export function parseTireSize(input: string): ParsedTireSize | null {
     }
   }
 
-  // Road format: 700x23c, 700x25, 700c-23
-  const roadMatch = cleaned.match(/^(700|650)[cx]?[x\-]?(\d+)c?$/);
+  // Road format: 700x23c, 700x25, 700c-23, 650bx47, 650cx23
+  const roadMatch = cleaned.match(/^(700|650)([abc])?[cx]?[x\-]?(\d+)?c?$/);
   if (roadMatch) {
-    const wheelSize = roadMatch[1];
-    const width = parseInt(roadMatch[2], 10);
-    const diameter = wheelSize === '700' ? 622 : 584;
+    const wheelBase = roadMatch[1];
+    const letter = roadMatch[2];
+    const widthStr = roadMatch[3];
+    const width = widthStr ? parseInt(widthStr, 10) : 0;
+    
+    let diameter: number;
+    if (wheelBase === '700') {
+      diameter = 622;
+    } else {
+      // 650 - use letter to determine BSD
+      const lookupKey = letter ? `650${letter}` : '650b';
+      diameter = bsdMapping[lookupKey] || 584;
+    }
     
     return {
       width,
       diameter,
       originalInput: input,
       format: 'Road Metric',
-      confidence: 'high'
+      confidence: width > 0 ? 'high' : 'low'
     };
   }
 
@@ -106,10 +116,14 @@ export function parseTireSize(input: string): ParsedTireSize | null {
     }
   }
 
-  // Simple wheel size only: 26, 27.5, 700c, 29
-  const wheelOnlyMatch = cleaned.match(/^(700c?|650b?|\d+\.?\d*)$/);
+  // Simple wheel size only: 26, 27.5, 700c, 29, 650a, 650b, 650c
+  const wheelOnlyMatch = cleaned.match(/^(700c?|650[abc]?|\d+\.?\d*)$/);
   if (wheelOnlyMatch) {
-    const wheelSize = wheelOnlyMatch[1].replace(/[bc]$/, '');
+    let wheelSize = wheelOnlyMatch[1];
+    // For 650 with letter, keep full key; otherwise strip trailing c
+    if (!wheelSize.startsWith('650')) {
+      wheelSize = wheelSize.replace(/c$/, '');
+    }
     const diameter = bsdMapping[wheelSize] || bsdMapping[wheelSize.toLowerCase()];
     
     if (diameter) {
@@ -153,6 +167,7 @@ export function getSuggestions(input: string): string[] {
   // Common size suggestions
   const commonSizes = [
     "700x23c", "700x25c", "700x28c", "700x32c", "700x35c",
+    "650bx47", "650bx42", "650cx23", "650cx25",
     "29x2.0", "29x2.1", "29x2.25", "29x2.3",
     "27.5x2.0", "27.5x2.1", "27.5x2.25", "27.5x2.3",
     "26x1.5", "26x1.75", "26x2.0", "26x2.1", "26x2.25",
