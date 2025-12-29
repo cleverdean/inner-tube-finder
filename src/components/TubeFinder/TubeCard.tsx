@@ -1,7 +1,7 @@
 import { TubeMatch, formatTubeName } from "@/utils/tubeMatcher";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Check, AlertCircle, ExternalLink } from "lucide-react";
+import { Check, AlertCircle, ExternalLink, PackageCheck } from "lucide-react";
 import prestaValve from "@/assets/presta-valve.svg";
 import schraderValve from "@/assets/schrader-valve.svg";
 import { SHOPIFY_STORE_PERMANENT_DOMAIN } from "@/lib/shopify";
@@ -96,6 +96,12 @@ export function TubeCard({ match, index }: TubeCardProps) {
 
           {/* Tags */}
           <div className="flex flex-wrap gap-1.5">
+            {tube.availableForSale && (
+              <Badge variant="outline" className="text-xs px-2 py-0 text-green-600 border-green-600/30 bg-green-50 dark:bg-green-950/30 dark:text-green-400">
+                <PackageCheck className="h-3 w-3 mr-1" />
+                In Stock
+              </Badge>
+            )}
             <Badge variant="secondary" className="text-xs px-2 py-0">
               {tube.material}
             </Badge>
