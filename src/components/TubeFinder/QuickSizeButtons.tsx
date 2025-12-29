@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 
 interface QuickSizeButtonsProps {
   onSelect: (size: string) => void;
-  compact?: boolean;
 }
 
 const quickSizes = [
@@ -18,15 +17,13 @@ const quickSizes = [
   { label: "Urban Arrow Rear", size: "52-559" },
 ];
 
-export function QuickSizeButtons({ onSelect, compact = false }: QuickSizeButtonsProps) {
-  const displaySizes = compact ? quickSizes.slice(0, 4) : quickSizes;
-  
+export function QuickSizeButtons({ onSelect }: QuickSizeButtonsProps) {
   return (
     <div className="flex flex-wrap gap-2 justify-center">
       <span className="w-full text-center text-sm text-muted-foreground mb-1">
         Quick select:
       </span>
-      {displaySizes.map((item) => (
+      {quickSizes.map((item) => (
         <button
           key={item.size}
           onClick={() => onSelect(item.size)}
