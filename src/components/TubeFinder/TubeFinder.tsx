@@ -137,13 +137,13 @@ export function TubeFinder() {
       </div>
 
       {/* Valve filter */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-4">
         <ValveFilter value={valveFilter} onChange={handleValveChange} />
       </div>
 
       {/* Error message */}
       {error && (
-        <div className="flex items-center gap-3 p-4 mb-6 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive">
+        <div className="flex items-center gap-3 p-4 mb-4 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <p>{error}</p>
         </div>
@@ -151,7 +151,7 @@ export function TubeFinder() {
 
       {/* Parsed size display */}
       {parsedSize && !error && (
-        <div className="mb-6">
+        <div className="mb-4">
           <ParsedSizeDisplay parsed={parsedSize} />
         </div>
       )}
