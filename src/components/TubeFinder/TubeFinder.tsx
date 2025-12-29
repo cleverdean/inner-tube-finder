@@ -123,7 +123,7 @@ export function TubeFinder() {
       </div>
 
       {/* Search input */}
-      <div className="mb-6">
+      <div className="mb-4">
         <TubeFinderInput
           value={inputValue}
           onChange={setInputValue}
@@ -132,12 +132,12 @@ export function TubeFinder() {
       </div>
 
       {/* Quick size buttons */}
-      <div className="mb-6">
+      <div className="mb-4">
         <QuickSizeButtons onSelect={handleQuickSelect} />
       </div>
 
       {/* Valve filter */}
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-2">
         <ValveFilter value={valveFilter} onChange={handleValveChange} />
       </div>
 
