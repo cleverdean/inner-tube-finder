@@ -431,9 +431,11 @@ export const bsdMapping: Record<string, number> = {
   "29": 622,
   "29er": 622,
   
-  // Mountain
+  // Mountain/Gravel
   "27.5": 584,
   "650b": 584,
+  "650a": 590,
+  "650c": 571,
   
   "26": 559,
   
