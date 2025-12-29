@@ -162,6 +162,7 @@ export interface TubeSpec {
   };
   imageUrl: string | null;
   variantId: string;
+  availableForSale: boolean;
 }
 
 // Storefront API helper function
@@ -292,6 +293,7 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
   }
 
   const firstVariant = product.variants.edges[0]?.node;
+  const availableForSale = product.variants.edges.some(v => v.node.availableForSale);
   
   return {
     id: product.id,
@@ -313,6 +315,7 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
     price: product.priceRange.minVariantPrice,
     imageUrl: product.images.edges[0]?.node.url || null,
     variantId: firstVariant?.id || '',
+    availableForSale,
   };
 }
 
