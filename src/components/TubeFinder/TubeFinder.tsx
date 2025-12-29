@@ -8,10 +8,14 @@ import { DebugPanel } from "./DebugPanel";
 import { parseTireSize, ParsedTireSize } from "@/utils/tireSizeParser";
 import { findMatchingTubes, TubeMatch } from "@/utils/tubeMatcher";
 import { useTubeProducts } from "@/hooks/useTubeProducts";
-import { AlertCircle, Bike, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import tireSizeFormats from "@/assets/tire-size-formats.webp";
 
-export function TubeFinder() {
+interface TubeFinderProps {
+  compact?: boolean;
+}
+
+export function TubeFinder({ compact = false }: TubeFinderProps) {
   const [inputValue, setInputValue] = useState("");
   const [valveFilter, setValveFilter] = useState<'Presta' | 'Schrader' | null>(null);
   const [parsedSize, setParsedSize] = useState<ParsedTireSize | null>(null);
@@ -94,37 +98,48 @@ export function TubeFinder() {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-3">
-          Inner Tube Finder
-        </h1>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          Enter your tire size to find the perfect inner tube. We'll match it with compatible options from our catalog.
-        </p>
-        {tubes.length > 0 && (
-          <p className="text-sm text-muted-foreground font-medium mt-2">
-            {tubes.length} tubes in catalog
+      {/* Header - hide in compact mode */}
+      {!compact && (
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3">
+            Inner Tube Finder
+          </h1>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            Enter your tire size to find the perfect inner tube. We'll match it with compatible options from our catalog.
           </p>
-        )}
-      </div>
-
-      {/* Tire size format reference image */}
-      <div className="mb-8 flex flex-col items-center">
-        <div className="relative max-w-md w-full rounded-xl overflow-hidden border border-border bg-card shadow-sm">
-          <img 
-            src={tireSizeFormats} 
-            alt="Tire size format examples showing ETRTO, Inch, and French sizing systems on a bike tire sidewall" 
-            className="w-full h-auto"
-          />
+          {tubes.length > 0 && (
+            <p className="text-sm text-muted-foreground font-medium mt-2">
+              {tubes.length} tubes in catalog
+            </p>
+          )}
         </div>
-        <p className="text-sm text-muted-foreground mt-3 text-center">
-          Find these markings on your tire sidewall
-        </p>
-      </div>
+      )}
+
+      {/* Compact header */}
+      {compact && (
+        <div className="text-center mb-4">
+          <h2 className="text-xl font-bold">Find Your Inner Tube</h2>
+        </div>
+      )}
+
+      {/* Tire size format reference image - hide in compact mode */}
+      {!compact && (
+        <div className="mb-8 flex flex-col items-center">
+          <div className="relative max-w-md w-full rounded-xl overflow-hidden border border-border bg-card shadow-sm">
+            <img 
+              src={tireSizeFormats} 
+              alt="Tire size format examples showing ETRTO, Inch, and French sizing systems on a bike tire sidewall" 
+              className="w-full h-auto"
+            />
+          </div>
+          <p className="text-sm text-muted-foreground mt-3 text-center">
+            Find these markings on your tire sidewall
+          </p>
+        </div>
+      )}
 
       {/* Search input */}
-      <div className="mb-6">
+      <div className={compact ? "mb-4" : "mb-6"}>
         <TubeFinderInput
           value={inputValue}
           onChange={setInputValue}
@@ -133,12 +148,12 @@ export function TubeFinder() {
       </div>
 
       {/* Quick size buttons */}
-      <div className="mb-6">
-        <QuickSizeButtons onSelect={handleQuickSelect} />
+      <div className={compact ? "mb-4" : "mb-6"}>
+        <QuickSizeButtons onSelect={handleQuickSelect} compact={compact} />
       </div>
 
       {/* Valve filter */}
-      <div className="flex justify-center mb-6">
+      <div className={`flex justify-center ${compact ? "mb-4" : "mb-6"}`}>
         <ValveFilter value={valveFilter} onChange={handleValveChange} />
       </div>
 
@@ -198,8 +213,8 @@ export function TubeFinder() {
         </div>
       )}
 
-      {/* Initial state */}
-      {!hasSearched && tubes.length > 0 && (
+      {/* Initial state - hide in compact mode */}
+      {!hasSearched && tubes.length > 0 && !compact && (
         <div className="text-center py-12 px-4 bg-muted/30 rounded-xl border-2 border-dashed border-border">
           <div className="max-w-sm mx-auto">
             <h3 className="font-medium mb-2">How to Find Your Tire Size</h3>
@@ -224,12 +239,14 @@ export function TubeFinder() {
         </div>
       )}
 
-      {/* Debug Panel */}
-      <DebugPanel 
-        parsedSize={parsedSize} 
-        tubesCount={tubes.length} 
-        matchesCount={matches.length}
-      />
+      {/* Debug Panel - hide in compact mode */}
+      {!compact && (
+        <DebugPanel 
+          parsedSize={parsedSize} 
+          tubesCount={tubes.length} 
+          matchesCount={matches.length}
+        />
+      )}
     </div>
   );
 }
