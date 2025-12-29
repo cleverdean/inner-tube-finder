@@ -1,8 +1,14 @@
+import { z } from 'zod';
+
 // Shopify Storefront API Configuration
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = '1baqf8-w1.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const SHOPIFY_STOREFRONT_TOKEN = '61fc3e63a937ea2fbf59f025ea6ceeb0';
+
+// Zod schemas for metafield validation
+const wheelSizesSchema = z.array(z.string().max(20)).max(50);
+const numericMetafieldSchema = z.number().min(0).max(10000);
 
 // GraphQL query to fetch tube products with metafields
 const TUBES_QUERY = `
@@ -185,22 +191,36 @@ async function storefrontApiRequest<T>(query: string, variables: Record<string, 
   return data;
 }
 
-// Parse wheel sizes from metafield (can be JSON array or comma-separated string)
+// Parse wheel sizes from metafield with validation (can be JSON array or comma-separated string)
 function parseWheelSizes(value: string | null): string[] {
   if (!value) return [];
   
   try {
     // Try parsing as JSON array first
     const parsed = JSON.parse(value);
-    if (Array.isArray(parsed)) {
-      return parsed.map(String);
+    const validated = wheelSizesSchema.safeParse(parsed);
+    if (validated.success) {
+      return validated.data;
     }
+    // If validation fails, fall through to comma-separated parsing
   } catch {
     // Not JSON, try comma-separated
   }
   
-  // Handle comma-separated or single value
-  return value.split(',').map(s => s.trim()).filter(Boolean);
+  // Handle comma-separated or single value with limits
+  const values = value.split(',').map(s => s.trim()).filter(Boolean);
+  return values.slice(0, 50).map(v => v.substring(0, 20));
+}
+
+// Parse numeric metafield with validation
+function parseNumericMetafield(value: string | null): number | null {
+  if (!value) return null;
+  
+  const parsed = parseFloat(value);
+  if (isNaN(parsed)) return null;
+  
+  const validated = numericMetafieldSchema.safeParse(parsed);
+  return validated.success ? validated.data : null;
 }
 
 // Track skipped products for debugging
@@ -233,10 +253,11 @@ function convertToTubeSpec(product: ShopifyTubeProduct): TubeSpec | null {
     valveType: product.valveType?.value ?? null,
   };
 
-  const widthMin = rawMetafields.widthMin ? parseFloat(rawMetafields.widthMin) : null;
-  const widthMax = rawMetafields.widthMax ? parseFloat(rawMetafields.widthMax) : null;
-  const diameterMin = rawMetafields.diameterMin ? parseFloat(rawMetafields.diameterMin) : null;
-  const diameterMax = rawMetafields.diameterMax ? parseFloat(rawMetafields.diameterMax) : null;
+  // Parse numeric metafields with validation
+  const widthMin = parseNumericMetafield(rawMetafields.widthMin);
+  const widthMax = parseNumericMetafield(rawMetafields.widthMax);
+  const diameterMin = parseNumericMetafield(rawMetafields.diameterMin);
+  const diameterMax = parseNumericMetafield(rawMetafields.diameterMax);
   
   // Skip products without required tube specifications
   if (widthMin === null || widthMax === null || diameterMin === null || diameterMax === null) {
