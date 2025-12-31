@@ -29,6 +29,8 @@ export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputPr
       if (selectedIndex >= 0 && suggestions[selectedIndex]) {
         onChange(suggestions[selectedIndex]);
         setShowSuggestions(false);
+        // Auto-search after selecting suggestion
+        setTimeout(() => onSearch(), 0);
       } else {
         onSearch();
       }
@@ -46,7 +48,8 @@ export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputPr
   const handleSuggestionClick = (suggestion: string) => {
     onChange(suggestion);
     setShowSuggestions(false);
-    inputRef.current?.focus();
+    // Auto-search after clicking suggestion
+    setTimeout(() => onSearch(), 0);
   };
 
   const handleClear = () => {
