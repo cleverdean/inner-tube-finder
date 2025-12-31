@@ -1,26 +1,83 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { getSuggestions } from "@/utils/tireSizeParser";
 import { cn } from "@/lib/utils";
+import { TubeSpec } from "@/lib/shopify";
 
 interface TubeFinderInputProps {
   value: string;
   onChange: (value: string) => void;
   onSearch: () => void;
+  tubes: TubeSpec[];
 }
 
-export function TubeFinderInput({ value, onChange, onSearch }: TubeFinderInputProps) {
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+// Generate searchable size strings from tube specs
+function generateTubeSuggestions(tubes: TubeSpec[]): string[] {
+  const suggestions = new Set<string>();
+  
+  tubes.forEach(tube => {
+    const widthMin = tube.widthMin;
+    const widthMax = tube.widthMax;
+    const diameter = tube.diameterMin;
+    
+    // Map BSD to common wheel size names
+    const wheelSizeMap: Record<number, string[]> = {
+      622: ['700c', '29'],
+      584: ['650b', '27.5'],
+      571: ['650c'],
+      590: ['650a'],
+      559: ['26'],
+      507: ['24'],
+      406: ['20'],
+      349: ['16'],
+    };
+    
+    const wheelNames = wheelSizeMap[diameter] || [];
+    
+    wheelNames.forEach(wheelName => {
+      // Road format: 700x25c
+      if (wheelName === '700c' || wheelName.startsWith('650')) {
+        for (let w = widthMin; w <= widthMax; w++) {
+          suggestions.add(`${wheelName}x${w}`);
+        }
+      }
+      // MTB format: 29x2.1
+      if (['29', '27.5', '26', '24', '20'].includes(wheelName)) {
+        const minInch = (widthMin / 25.4).toFixed(1);
+        const maxInch = (widthMax / 25.4).toFixed(1);
+        suggestions.add(`${wheelName}x${minInch}`);
+        suggestions.add(`${wheelName}x${maxInch}`);
+      }
+    });
+    
+    // ETRTO format
+    suggestions.add(`${widthMin}-${diameter}`);
+    suggestions.add(`${widthMax}-${diameter}`);
+  });
+  
+  return Array.from(suggestions).sort();
+}
+
+export function TubeFinderInput({ value, onChange, onSearch, tubes }: TubeFinderInputProps) {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
+  // Generate all possible suggestions from tubes
+  const allSuggestions = useMemo(() => generateTubeSuggestions(tubes), [tubes]);
+  
+  // Filter suggestions based on input
+  const suggestions = useMemo(() => {
+    if (!value.trim()) return [];
+    const lower = value.toLowerCase().replace(/\s+/g, '');
+    return allSuggestions
+      .filter(s => s.toLowerCase().includes(lower))
+      .slice(0, 8);
+  }, [value, allSuggestions]);
+
   useEffect(() => {
-    const newSuggestions = getSuggestions(value);
-    setSuggestions(newSuggestions);
     setSelectedIndex(-1);
   }, [value]);
 

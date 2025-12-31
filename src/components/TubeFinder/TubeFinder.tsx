@@ -134,6 +134,7 @@ export function TubeFinder() {
           value={inputValue}
           onChange={setInputValue}
           onSearch={handleSearch}
+          tubes={tubes}
         />
       </div>
 
