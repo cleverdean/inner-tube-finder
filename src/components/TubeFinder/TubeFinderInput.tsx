@@ -56,7 +56,14 @@ function generateTubeSuggestions(tubes: TubeSpec[]): string[] {
     suggestions.add(`${widthMax}-${diameter}`);
   });
   
-  return Array.from(suggestions).sort();
+  // Sort numerically by extracting wheel size first
+  return Array.from(suggestions).sort((a, b) => {
+    // Extract leading number for comparison
+    const numA = parseFloat(a.match(/^[\d.]+/)?.[0] || '0');
+    const numB = parseFloat(b.match(/^[\d.]+/)?.[0] || '0');
+    if (numA !== numB) return numA - numB;
+    return a.localeCompare(b);
+  });
 }
 
 export function TubeFinderInput({ value, onChange, onSearch, tubes }: TubeFinderInputProps) {
@@ -157,7 +164,7 @@ export function TubeFinderInput({ value, onChange, onSearch, tubes }: TubeFinder
               key={suggestion}
               onClick={() => handleSuggestionClick(suggestion)}
               className={cn(
-                "w-full px-4 py-3 text-left font-mono text-sm transition-colors",
+                "w-full px-4 py-3 text-left text-sm transition-colors",
                 "hover:bg-muted",
                 index === selectedIndex && "bg-muted"
               )}
