@@ -1,0 +1,18 @@
+{% comment %}
+  Inner Tube Finder — built from cleverdean/inner-tube-finder
+  Upload inner-tube-finder.js and inner-tube-finder.css to theme assets after each build.
+{% endcomment %}
+
+{{ 'inner-tube-finder.css' | asset_url | stylesheet_tag }}
+
+<div id="root"></div>
+
+<script>
+  // Pass Dawn's CSS variables into the app's root so it can inherit theme colors
+  document.getElementById('root').style.setProperty(
+    '--font-body-family',
+    getComputedStyle(document.documentElement).getPropertyValue('--font-body-family')
+  );
+</script>
+
+{{ 'inner-tube-finder.js' | asset_url | script_tag }}
